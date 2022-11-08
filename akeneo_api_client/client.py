@@ -60,7 +60,7 @@ class Client:
                 urljoin(self._base_url, self.BASIC_API_PATH, 'measure-families/'), session),
             'media_files': MediaFilesPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'media-files/'), session),
-            'asset_family': AssetFamiliesPool(
+            'asset_families': AssetFamiliesPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/'), session),
             'products': ProductsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'products/'), session),
