@@ -60,6 +60,10 @@ class Client:
                 urljoin(self._base_url, self.BASIC_API_PATH, 'measure-families/'), session),
             'media_files': MediaFilesPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'media-files/'), session),
+            'asset_family': AssetFamiliesPool(
+                urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/'), session),
+            'asset': AssetPool(
+                urljoin(self._base_url, self.BASIC_API_PATH, 'assets'), session),
             'products': ProductsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'products/'), session),
             'product_models': ProductModelsPool(
@@ -112,6 +116,14 @@ class Client:
     @property
     def media_files(self):
         return self._resources["media_files"]
+
+    @property
+    def asset_families(self):
+        return self._resources["asset_families"]
+
+    @propery
+    def assets(self):
+        return self._resources["assets"]
 
     @property
     def products(self):
