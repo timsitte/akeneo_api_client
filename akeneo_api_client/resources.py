@@ -317,7 +317,7 @@ class AssetFamiliesPool(ResourcePool,
 
     def assets(self, code):
         return AssetsPool(
-            urljoin(self._endpoint, code, 'assets/', ),
+            urljoin(self._endpoint, code, 'assets/'),
             self._session
         )
 
