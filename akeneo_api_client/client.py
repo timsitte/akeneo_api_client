@@ -67,7 +67,10 @@ class Client:
             'product_models': ProductModelsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'product-models/'), session),
             'published_products': PublishedProductsPool(
-                urljoin(self._base_url, self.BASIC_API_PATH, 'published-products/'), session)
+                urljoin(self._base_url, self.BASIC_API_PATH, 'published-products/'), session),
+            'asset_images': AssetImages(
+                urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/product_image/assets', session)
+            )
         }
 
     @property
@@ -118,6 +121,10 @@ class Client:
     @property
     def asset_families(self):
         return self._resources["asset_families"]
+
+    @property
+    def asset_images(self):
+        return self._resources["asset_images"]
 
     @property
     def products(self):

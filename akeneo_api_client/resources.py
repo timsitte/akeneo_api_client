@@ -322,6 +322,16 @@ class AssetFamiliesPool(ResourcePool,
         )
 
 
+class AssetImages(ResourcePool,
+                  CodeBasedResource,
+                  ListableResource,
+                  CreatableResource,
+                  GettableResource,
+                  UpdatableResource
+                  ):
+    pass
+
+
 class LocalesPool(ResourcePool,
                   CodeBasedResource,
                   ListableResource,
