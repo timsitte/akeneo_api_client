@@ -69,8 +69,7 @@ class Client:
             'published_products': PublishedProductsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'published-products/'), session),
             'asset_images': AssetImages(
-                urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/product_image/assets', session)
-            )
+                urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/product_image/assets'), session)
         }
 
     @property
