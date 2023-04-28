@@ -24,7 +24,7 @@ The easiest is to use pipenv in your new project:
 
 .. code:: bash
 
-        pipenv install git+https://github.com/matthieudelaro/akeneo_api_client#egg=akeneo_api_client
+        pipenv install git+https://github.com/timsitte/akeneo_api_client#egg=akeneo_api_client
         
 Usage
 -----
