@@ -193,7 +193,8 @@ class ProductModelsPool(ResourcePool,
                         CreatableResource,
                         GettableResource,
                         SearchAfterListableResource,
-                        UpdatableResource, ):
+                        UpdatableResource,
+                        UpdatableListResource):
     """https://api.akeneo.com/api-reference.html#Productmodels"""
     pass
 
