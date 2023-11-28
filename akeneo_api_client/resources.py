@@ -45,6 +45,29 @@ class ListableResource(ListableResourceInterface):
         return c
 
 
+class ListableWoPaginationResource(ListableResourceInterface):
+    def fetch_list(self, args=None):
+        """"""
+        if args:
+            for (key, value) in args.items():
+                if not isinstance(value, str):
+                    args[key] = json.dumps(value)
+
+        logger.debug(self._endpoint)
+        url = urljoin(self._endpoint)
+        logger.debug(url)
+        r = self._session.get(url)
+
+        if r.status_code != 200:
+            raise requests.HTTPError("Status code: {0}. Content: {1}".format(
+                r.status_code,
+                r.text))
+
+        logger.debug(r.status_code)
+        logger.debug(r.text)
+        return json.loads(r.text)  # returns item as a dict
+
+
 class SearchAfterListableResource(ListableResource):
     def fetch_list(self, args=None):
         """Send a request with search, etc.
@@ -160,11 +183,11 @@ class CodeBasedResource(CodeBasedResourceInterface):
         return item['code']
 
 
-class EnterpriseEditionResource():
+class EnterpriseEditionResource:
     pass
 
 
-class ResourcePool():
+class ResourcePool:
     def __init__(self, endpoint, session):
         """Initialize the ResourcePool to the given endpoint. Eg: products"""
         self._endpoint = endpoint
@@ -307,6 +330,31 @@ class AssetsPool(ResourcePool,
     pass
 
 
+class AssetFamiliesAttributesOptionsPool(ResourcePool,
+                                         CodeBasedResource,
+                                         CreatableResource,
+                                         GettableResource,
+                                         ListableWoPaginationResource,
+                                         UpdatableResource,
+                                         UpdatableListResource,
+                                         ):
+    pass
+
+
+class AssetFamiliesAttributesPool(ResourcePool,
+                                  CodeBasedResource,
+                                  ListableWoPaginationResource,
+                                  CreatableResource,
+                                  GettableResource,
+                                  UpdatableResource
+                                  ):
+    def options(self, code):
+        return AssetFamiliesAttributesOptionsPool(
+            urljoin(self._endpoint, code, 'options/'),
+            self._session
+        )
+
+
 class AssetFamiliesPool(ResourcePool,
                         CodeBasedResource,
                         ListableResource,
@@ -322,15 +370,72 @@ class AssetFamiliesPool(ResourcePool,
             self._session
         )
 
+    def attributes(self, code):
+        return AssetFamiliesAttributesPool(
+            urljoin(self._endpoint, code, 'attributes/'),
+            self._session
+        )
 
-class AssetImages(ResourcePool,
-                  CodeBasedResource,
-                  ListableResource,
-                  CreatableResource,
-                  GettableResource,
-                  UpdatableResource
-                  ):
+
+class ReferenceEntitiesAttributeOptionsPool(ResourcePool,
+                                            CodeBasedResource,
+                                            CreatableResource,
+                                            GettableResource,
+                                            ListableWoPaginationResource,
+                                            UpdatableResource,
+                                            UpdatableListResource,
+                                            ):
+    """https://api.akeneo.com/api-reference-index.html#Referenceentityrecord"""
     pass
+
+
+class ReferenceEntitiesAttributesPool(ResourcePool,
+                                      CodeBasedResource,
+                                      ListableWoPaginationResource,
+                                      CreatableResource,
+                                      GettableResource,
+                                      UpdatableResource
+                                      ):
+    """https://api.akeneo.com/api-reference-index.html#Referenceentityrecord"""
+
+    def options(self, code):
+        return ReferenceEntitiesAttributeOptionsPool(
+            urljoin(self._endpoint, code, 'options/'),
+            self._session
+        )
+
+
+class ReferenceEntitiesRecordsPool(ResourcePool,
+                                   CodeBasedResource,
+                                   ListableResource,
+                                   CreatableResource,
+                                   GettableResource,
+                                   UpdatableResource
+                                   ):
+    """https://api.akeneo.com/api-reference-index.html#Referenceentityrecord"""
+    pass
+
+
+class ReferenceEntitiesPool(ResourcePool,
+                            CodeBasedResource,
+                            ListableResource,
+                            CreatableResource,
+                            GettableResource,
+                            UpdatableResource
+                            ):
+    """https://api.akeneo.com/api-reference-index.html#Referenceentity"""
+
+    def records(self, code):
+        return ReferenceEntitiesRecordsPool(
+            urljoin(self._endpoint, code, 'records/'),
+            self._session
+        )
+
+    def attributes(self, code):
+        return ReferenceEntitiesAttributesPool(
+            urljoin(self._endpoint, code, 'attributes/'),
+            self._session
+        )
 
 
 class LocalesPool(ResourcePool,

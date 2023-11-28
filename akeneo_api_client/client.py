@@ -66,10 +66,12 @@ class Client:
                 urljoin(self._base_url, self.BASIC_API_PATH, 'products/'), session),
             'product_models': ProductModelsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'product-models/'), session),
+            'reference_entities': ReferenceEntitiesPool(
+                urljoin(self._base_url, self.BASIC_API_PATH, 'reference-entities/'), session),
+            # Important update: Published Products discontinuation. After careful consideration and in alignment
+            # with our long-term product vision, we have made the decision to remove this feature on February 28, 2024
             'published_products': PublishedProductsPool(
                 urljoin(self._base_url, self.BASIC_API_PATH, 'published-products/'), session),
-            'asset_images': AssetImages(
-                urljoin(self._base_url, self.BASIC_API_PATH, 'asset-families/product_image/assets'), session)
         }
 
     @property
@@ -122,10 +124,6 @@ class Client:
         return self._resources["asset_families"]
 
     @property
-    def asset_images(self):
-        return self._resources["asset_images"]
-
-    @property
     def products(self):
         return self._resources["products"]
 
@@ -136,3 +134,7 @@ class Client:
     @property
     def published_products(self):
         return self._resources["published_products"]
+
+    @property
+    def reference_entities(self):
+        return self._resources["reference_entities"]
