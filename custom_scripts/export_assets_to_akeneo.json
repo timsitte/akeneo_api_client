@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Bosch Hammerbohrer SDS plus-5 17 x 150 x 215 mm",
+        "sku": "10001018",
+        "images": [
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-xpxM-1k4-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-1.jpg",
+                "position": 1
+            },
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-0D2DPCjp-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-2.jpg",
+                "position": 2
+            },
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-oIc4rc6N-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-3.jpg",
+                "position": 3
+            },
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-FMfqNmUd-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-4.jpg",
+                "position": 4
+            },
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-LOLKAco3-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-5.jpg",
+                "position": 5
+            },
+            {
+                "url": "https://media.contorion.de/media/images/products/preview-G2cAW47w-xz.jpg",
+                "seo_filename": "bosch-hammerbohrer-sds-plus-5-17-x-150-x-215-mm-6.jpg",
+                "position": 6
+            }
+        ]
+    }
+]

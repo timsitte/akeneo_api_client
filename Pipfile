@@ -1,24 +1,20 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
-requests = "<2.19"
+requests = ">=2.31.0"
+urllib3 = "<2"
 logzero = "*"
-
+akeneo-api-client = {git = "https://github.com/timsitte/akeneo_api_client"}
+python-dotenv = "*"
 
 [dev-packages]
-
 nose = "*"
 vcrpy-unittest = "==0.1.*"
 sphinx = "==1.6.5"
 vcrpy = "*"
 
-
 [requires]
-
 python_version = "3"
