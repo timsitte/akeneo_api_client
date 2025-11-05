@@ -66,12 +66,45 @@ class AkeneoHttp:
         return self.session.patch(url, headers=headers)
 
 
-def load_input_json(path: str) -> List[Dict]:
-    with open(path, 'r') as f:
-        data = json.load(f)
-    if not isinstance(data, list):
-        raise ValueError("Input JSON must be a top-level array of products")
-    return data
+def load_input_csv(path: str) -> List[Dict]:
+    """Load CSV data and group by SKU to create product entries with images"""
+    import csv
+    
+    products = {}
+    
+    with open(path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        for row in reader:
+            sku = row['sku']
+            product_title = row['product_title']
+            image_url = row['image_url']
+            image_seo_filename = row['image_seo_filename']
+            image_position = row['image_position']
+            
+            # Initialize product if not seen before
+            if sku not in products:
+                products[sku] = {
+                    'sku': sku,
+                    'name': product_title,
+                    'images': []
+                }
+            
+            # Add image if it has data
+            if image_url and image_seo_filename and image_position:
+                products[sku]['images'].append({
+                    'url': image_url,
+                    'seo_filename': image_seo_filename,
+                    'position': int(image_position)
+                })
+    
+    # Convert to list and sort images by position
+    result = []
+    for sku, product in products.items():
+        # Sort images by position
+        product['images'].sort(key=lambda x: x.get('position', 9999))
+        result.append(product)
+    
+    return result
 
 
 def sanitize_asset_code(filename: str) -> str:
@@ -298,7 +331,7 @@ def print_summary(stats: Dict):
 
 
 def main():
-    input_path = os.environ.get("INPUT_JSON_PATH") or os.path.join(os.path.dirname(__file__), "export_assets_to_akeneo.json")
+    input_path = os.environ.get("INPUT_CSV_PATH") or os.path.join(os.path.dirname(__file__), "export_assets_to_akeneo.csv")
 
     AKENEO_CLIENT_ID = os.environ.get("AKENEO_CLIENT_ID")
     AKENEO_SECRET = os.environ.get("AKENEO_SECRET") or os.environ.get("AKENEO_CLIENT_SECRET")
@@ -321,7 +354,7 @@ def main():
     http = AkeneoHttp(akeneo, AKENEO_BASE_URL)
 
     try:
-        products = load_input_json(input_path)
+        products = load_input_csv(input_path)
     except Exception as e:
         print(f"Failed to load input file {input_path}: {e}")
         sys.exit(2)
