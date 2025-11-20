@@ -110,3 +110,4 @@ venv.bak/
 
 custom_scripts/**
 !custom_scripts/export_assets_to_akeneo.py
+!custom_scripts/export_assets_to_akeneo_example.csv
