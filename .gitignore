@@ -107,3 +107,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+custom_scripts/**
+!custom_scripts/export_assets_to_akeneo.py
